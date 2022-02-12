@@ -34,8 +34,18 @@ const Form = ({ currentId, setCurrentId }) => {
     } else {
       dispatch(createPost(postData));
     }
+    clear();
   };
-  const clear = () => {};
+  const clear = () => {
+    setCurrentId(null);
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
+  };
   return (
     <Paper className={classes.paper}>
       <form
@@ -44,7 +54,10 @@ const Form = ({ currentId, setCurrentId }) => {
         className={`${classes.form} ${classes.root}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6"> Creating a Post</Typography>
+        <Typography variant="h6">
+          {" "}
+          {currentId ? "Editing" : "Creating"} a Post
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"
