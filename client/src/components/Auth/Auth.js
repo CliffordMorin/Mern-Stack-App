@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { signIn, signUp } from "../../actions/auth";
 import { useDispatch } from "react-redux";
 
+//form data's initial state
 const initialState = {
   firstName: "",
   lastName: "",
@@ -29,15 +30,15 @@ const Auth = () => {
   const [formData, setFormData] = useState(initialState);
   const [isSignedUp, setIsSignedUp] = useState(false);
   const classes = useStyles();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isSignedUp) {
-      dispatch(signUp(formData, history));
+      dispatch(signUp(formData, navigate));
     } else {
-      dispatch(signIn(formData, history));
+      dispatch(signIn(formData, navigate));
     }
   };
   const handleChange = (e) => {

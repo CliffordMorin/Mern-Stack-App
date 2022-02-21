@@ -1,13 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
 import useStyles from "./styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import instaverse from "../../images/instaverse.png";
 
 const Navbar = () => {
   const classes = useStyles();
-  const user = null;
+  //get the user by grabbing the user from local storage
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const logout = () => {
+    dispatch({ type: "LOGOUT" });
+    //when someone logs out push them to /auth
+    navigate("/auth");
+    //if someone is logged out set the user to null
+    setUser(null);
+  };
+  //need to re navigate automatically to log in
+  useEffect(() => {
+    const token = user?.token;
+    //check for JWT when we signup
+
+    //set user to profile from local storage, when the page loads
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [location]);
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
@@ -30,6 +50,7 @@ const Navbar = () => {
         />
       </div>
       <Toolbar className={classes.toolbar}>
+        {/* if there is a user return there avatar and info, and if no user return a sign in button*/}
         {user ? (
           <div className={classes.profile}>
             <Avatar
@@ -45,6 +66,7 @@ const Navbar = () => {
             <Button
               variant="contained"
               className={classes.logout}
+              onClick={logout}
               color="secondary"
             >
               Logout

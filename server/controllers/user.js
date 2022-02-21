@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 import User from "../models/user.js";
 
-export const signin = async (req, res) => {
+export const login = async (req, res) => {
   //get something from the req.body and destructure the objects sent over
   const { email, password } = req.body;
 
@@ -36,14 +36,14 @@ export const signin = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-  const { email, password, firstName, lastName } = req.body;
+  const { email, password, firstName, lastName, confirmedPassword } = req.body;
   try {
     const existingUser = await User.findOne({ email });
     //if there is no matching email found in the database return
     if (existingUser) {
       return res.status(404).json({ message: "User already exists" });
     }
-    if (password !== confirmPassword) {
+    if (password !== confirmedPassword) {
       res.status(400).json({ message: "Passwords don't match" });
     }
 
