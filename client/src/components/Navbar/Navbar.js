@@ -3,6 +3,7 @@ import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
 import useStyles from "./styles";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import decode from "jwt-decode";
 
 import instaverse from "../../images/instaverse.png";
 
@@ -23,8 +24,15 @@ const Navbar = () => {
   //need to re navigate automatically to log in
   useEffect(() => {
     const token = user?.token;
-    //check for JWT when we signup
 
+    //handling for when JWT expires
+    //run logout function if token decodedToken is greater than the current time in miliseconds
+    if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        logout();
+      }
+    }
     //set user to profile from local storage, when the page loads
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
