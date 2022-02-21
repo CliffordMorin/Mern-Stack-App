@@ -12,15 +12,19 @@ export const getPosts = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-  const body = req.body;
+  const post = req.body;
 
-  const newPost = new PostMessage(body);
+  const newPost = new PostMessage({
+    ...post,
+    creator: req.userId,
+    createdAt: new Date().toISOString(),
+  });
 
   try {
     await newPost.save();
 
     console.log("New Post saved to database");
-    re.status(201).json(newPost);
+    res.status(201).json(newPost);
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
