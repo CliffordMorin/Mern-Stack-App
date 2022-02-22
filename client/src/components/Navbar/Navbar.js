@@ -48,7 +48,7 @@ const Navbar = () => {
           align="center"
         >
           {" "}
-          Instaverse{" "}
+          Mindump{" "}
         </Typography>
         <img
           className={classes.image}
