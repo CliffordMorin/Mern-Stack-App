@@ -14,7 +14,6 @@ export default makeStyles((theme) => ({
   heading: {
     color: "#55133B",
     fontWeight: "400",
-    textTransform: "lowercase",
     textDecoration: "none",
   },
   image: {
