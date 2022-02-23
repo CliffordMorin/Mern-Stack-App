@@ -2,5 +2,5 @@
 
 ## Links
 
-- GH-Pages demo site link: (https://mindump.netlify.app/)
+- Netlify demo site link: (https://mindump.netlify.app/)
 - Github Repository URL: (https://github.com/CliffordMorin/Mern-Stack-App)
