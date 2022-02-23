@@ -10,12 +10,16 @@ const app = express();
 
 dotenv.config();
 
-app.use(bodyParser.json({ limit: "32mb", extend: true }));
-app.use(bodyParser.urlencoded({ limit: "32mb", extend: true }));
+app.use(bodyParser.json({ limit: "32mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "32mb", extended: true }));
 app.use(cors());
 
 app.use("/posts", postRoutes);
 app.use("/user", userRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Welcome to Mindump API!");
+});
 
 const PORT = process.env.PORT || 5001;
 
