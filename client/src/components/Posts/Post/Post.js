@@ -7,6 +7,8 @@ import {
   CardMedia,
   Button,
   Typography,
+  Dialog,
+  Paper,
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpOutlined";
@@ -21,6 +23,16 @@ const Post = ({ post, setCurrentId }) => {
   const classes = usestyles();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -54,7 +66,28 @@ const Post = ({ post, setCurrentId }) => {
         className={classes.media}
         image={post.selectedFile}
         title={post.title}
+        onClick={handleOpen}
       ></CardMedia>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <img
+            src={post.selectedFile}
+            alt="post modal"
+            className={classes.dialogImg}
+          />
+        </div>
+      </Dialog>
       <div className={classes.overlay}>
         <Typography variant="h6">{post.name}</Typography>
         <Typography variant="body2">
