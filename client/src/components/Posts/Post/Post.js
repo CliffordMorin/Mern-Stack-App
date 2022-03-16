@@ -8,7 +8,6 @@ import {
   Button,
   Typography,
   Dialog,
-  Paper,
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpOutlined";
