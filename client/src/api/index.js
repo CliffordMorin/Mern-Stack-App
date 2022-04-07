@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API = axios.create({ baseURL: "http://localhost:5001" });
-const API = axios.create({ baseURL: "https://mindump-project.herokuapp.com" });
+const API = axios.create({ baseURL: "http://localhost:5001" });
+// const API = axios.create({ baseURL: "https://mindump-project.herokuapp.com" });
 
 //sends jwt to the back end to verify you are logged in, which is then passed through the middleware
 // in order for the user to do actions in the app such as like and post
@@ -16,8 +16,10 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const fetchPosts = () => API.get("/posts");
-export const createPost = (newPost) => API.post("/posts", newPost);
+export const fetchPosts = (sort) => API.get("/posts?_sort=" + sort);
+export const createPost = (newPost) => {
+  API.post("/posts", newPost);
+};
 export const updatePost = (id, updatedPost) => {
   API.patch(`/posts/${id}`, updatedPost);
 };

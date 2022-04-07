@@ -2,8 +2,28 @@ import PostMessage from "../models/postMessage.js";
 import mongoose from "mongoose";
 
 export const getPosts = async (req, res) => {
+  //client send server query ?sort=
+  const sort = req.query;
+  console.log(sort._sort);
+
   try {
-    const postMessages = await PostMessage.find();
+    let postMessages = await PostMessage.find();
+
+    if (sort._sort === "newest") {
+      postMessages = postMessages.sort((a, b) => {
+        return b.createdAt - a.createdAt;
+      });
+    }
+    if (sort._sort === "oldest") {
+      postMessages = postMessages.sort((a, b) => {
+        return a.createdAt - b.createdAt;
+      });
+    }
+    if (sort._sort === "likes") {
+      postMessages = postMessages.sort((a, b) => {
+        return b.likes.length - a.likes.length;
+      });
+    }
 
     res.status(200).json(postMessages);
   } catch (error) {

@@ -9,12 +9,13 @@ import useStyles from "./styles";
 
 const Home = () => {
   const [currentId, setCurrentId] = useState(null);
+  const [sort, setSort] = useState("newest");
   const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, dispatch]);
+    dispatch(getPosts(sort));
+  }, [currentId, sort, dispatch]);
 
   return (
     <div>
@@ -31,7 +32,11 @@ const Home = () => {
               <Posts setCurrentId={setCurrentId} />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form currentId={currentId} setCurrentId={setCurrentId} />
+              <Form
+                currentId={currentId}
+                setCurrentId={setCurrentId}
+                sort={sort}
+              />
             </Grid>
           </Grid>
         </Container>

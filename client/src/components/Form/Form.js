@@ -3,12 +3,12 @@ import usestyles from "./styles.js";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import { useDispatch } from "react-redux";
-import { createPost, updatePost } from "../../actions/posts";
+import { createPost, updatePost, getPosts } from "../../actions/posts";
 import { useSelector } from "react-redux";
 
 //get current id of the post we are on
 
-const Form = ({ currentId, setCurrentId }) => {
+const Form = ({ currentId, setCurrentId, sort }) => {
   const classes = usestyles();
   const [postData, setPostData] = useState({
     title: "",
@@ -36,6 +36,7 @@ const Form = ({ currentId, setCurrentId }) => {
       );
     } else {
       dispatch(createPost({ ...postData, name: user?.result?.name }));
+      dispatch(getPosts(sort));
     }
     clear();
   };
