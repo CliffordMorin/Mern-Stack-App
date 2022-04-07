@@ -19,9 +19,14 @@ export const getPosts = async (req, res) => {
         return a.createdAt - b.createdAt;
       });
     }
-    if (sort._sort === "likes") {
+    if (sort._sort === "most-likes") {
       postMessages = postMessages.sort((a, b) => {
         return b.likes.length - a.likes.length;
+      });
+    }
+    if (sort._sort === "least-likes") {
+      postMessages = postMessages.sort((a, b) => {
+        return a.likes.length - b.likes.length;
       });
     }
 

@@ -76,6 +76,7 @@ const Form = ({ currentId, setCurrentId, sort }) => {
           name="title"
           variant="outlined"
           label="Title"
+          required
           fullWidth
           value={postData.title}
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
@@ -84,6 +85,7 @@ const Form = ({ currentId, setCurrentId, sort }) => {
           name="message"
           variant="outlined"
           label="Message"
+          required
           fullWidth
           value={postData.message}
           onChange={(e) =>

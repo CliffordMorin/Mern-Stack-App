@@ -18,6 +18,10 @@ export default makeStyles((theme) => ({
   image: {
     marginLeft: "15px",
   },
+  formControl: {
+    margin: "20px",
+    width: "90%",
+  },
   //adds media queries using material UI, to change the form to the top of the screen on mobile
   [theme.breakpoints.down("sm")]: {
     mainContainer: {
