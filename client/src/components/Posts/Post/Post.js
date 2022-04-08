@@ -100,6 +100,7 @@ const Post = ({ post, setCurrentId }) => {
             size="small"
             onClick={() => {
               setCurrentId(post._id);
+              window.scrollTo(0, 0);
             }}
           >
             <MoreHorizIcon fontSize="medium" />

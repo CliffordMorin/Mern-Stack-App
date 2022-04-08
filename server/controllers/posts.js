@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 export const getPosts = async (req, res) => {
   //client send server query ?sort=
   const sort = req.query;
-  console.log(sort._sort);
 
   try {
     let postMessages = await PostMessage.find();

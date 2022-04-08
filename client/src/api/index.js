@@ -18,10 +18,10 @@ API.interceptors.request.use((req) => {
 
 export const fetchPosts = (sort) => API.get("/posts?_sort=" + sort);
 export const createPost = (newPost) => {
-  API.post("/posts", newPost);
+  return API.post("/posts", newPost);
 };
 export const updatePost = (id, updatedPost) => {
-  API.patch(`/posts/${id}`, updatedPost);
+  return API.patch(`/posts/${id}`, updatedPost);
 };
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
