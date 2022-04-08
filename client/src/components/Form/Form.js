@@ -87,6 +87,7 @@ const Form = ({ currentId, setCurrentId, sort }) => {
           label="Message"
           required
           fullWidth
+          multiline
           value={postData.message}
           onChange={(e) =>
             setPostData({ ...postData, message: e.target.value })
@@ -96,6 +97,7 @@ const Form = ({ currentId, setCurrentId, sort }) => {
           name="tags"
           variant="outlined"
           label="Tags"
+          placeholder="yolo, swag, etc"
           fullWidth
           value={postData.tags}
           onChange={(e) =>

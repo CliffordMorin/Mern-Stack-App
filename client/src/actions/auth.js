@@ -1,5 +1,6 @@
 import { AUTH } from "../constants/actionsTypes";
 import * as api from "../api";
+import { toast } from "react-toastify";
 
 export const signIn = (formData, navigate) => async (dispatch) => {
   try {
@@ -10,6 +11,7 @@ export const signIn = (formData, navigate) => async (dispatch) => {
     navigate("/");
   } catch (error) {
     console.log(error);
+    toast.error("Invalid email or password");
   }
 };
 export const signUp = (formData, navigate) => async (dispatch) => {
@@ -22,5 +24,6 @@ export const signUp = (formData, navigate) => async (dispatch) => {
     navigate("/");
   } catch (error) {
     console.log(error);
+    toast.error("User already exists, sign in instead");
   }
 };

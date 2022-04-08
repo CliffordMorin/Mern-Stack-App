@@ -17,7 +17,7 @@ const store = createStore(reducers, compose(applyMiddleware(thunk)));
 ReactDOM.render(
   <Provider store={store}>
     <App />
-    <ToastContainer />
+    <ToastContainer position="bottom-left" />
   </Provider>,
   document.getElementById("root")
 );
