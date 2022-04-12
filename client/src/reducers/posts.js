@@ -6,24 +6,37 @@ import {
   DELETE,
 } from "../constants/actionsTypes";
 
-const reducer = (posts = [], action) => {
+const reducer = (state = [], action) => {
   switch (action.type) {
     case DELETE:
-      return posts.filter((post) => post._id !== action.payload);
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post._id !== action.payload),
+      };
     case UPDATE:
-      return posts.map((post) =>
-        post._id === action.payload._id ? action.payload : post
-      );
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
     case LIKE:
-      return posts.map((post) =>
-        post._id === action.payload._id ? action.payload : post
-      );
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
     case FETCH_ALL:
-      return action.payload;
+      return {
+        ...state,
+        posts: action.payload.data,
+        totalPages: action.payload.totalPages,
+      };
     case CREATE:
-      return [...posts, action.payload];
+      return { ...state, posts: [...state.posts, action.payload] };
     default:
-      return posts;
+      return state;
   }
 };
 

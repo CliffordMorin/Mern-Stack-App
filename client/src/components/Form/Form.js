@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 //get current id of the post we are on
 
-const Form = ({ currentId, setCurrentId, sort }) => {
+const Form = ({ currentId, setCurrentId, sort, page }) => {
   const classes = usestyles();
   const [postData, setPostData] = useState({
     title: "",
@@ -21,7 +21,7 @@ const Form = ({ currentId, setCurrentId, sort }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   //finds the specific post to update and populates the input fields with the post to update it
   const post = useSelector((state) =>
-    currentId ? state.posts.find((p) => p._id === currentId) : null
+    currentId ? state.posts.posts.find((p) => p._id === currentId) : null
   );
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Form = ({ currentId, setCurrentId, sort }) => {
       );
     } else {
       dispatch(createPost({ ...postData, name: user?.result?.name }));
-      dispatch(getPosts(sort));
+      dispatch(getPosts(sort, page));
     }
     clear();
   };
@@ -97,7 +97,7 @@ const Form = ({ currentId, setCurrentId, sort }) => {
           name="tags"
           variant="outlined"
           label="Tags"
-          placeholder="yolo, swag, etc"
+          placeholder="yolo,swag,livin,etc...no spaces"
           fullWidth
           value={postData.tags}
           onChange={(e) =>

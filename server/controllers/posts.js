@@ -2,34 +2,44 @@ import PostMessage from "../models/postMessage.js";
 import mongoose from "mongoose";
 
 export const getPosts = async (req, res) => {
+  //Pagination
+  const PAGE_SIZE = 4;
+  const page = parseInt(req.query._page || "1");
+  const total = await PostMessage.countDocuments();
+
   //client send server query ?sort=
   const sort = req.query;
 
   try {
-    let postMessages = await PostMessage.find();
+    let posts = await PostMessage.find();
 
     if (sort._sort === "newest") {
-      postMessages = postMessages.sort((a, b) => {
+      posts = posts.sort((a, b) => {
         return b.createdAt - a.createdAt;
       });
     }
     if (sort._sort === "oldest") {
-      postMessages = postMessages.sort((a, b) => {
+      posts = posts.sort((a, b) => {
         return a.createdAt - b.createdAt;
       });
     }
     if (sort._sort === "most-likes") {
-      postMessages = postMessages.sort((a, b) => {
+      posts = posts.sort((a, b) => {
         return b.likes.length - a.likes.length;
       });
     }
     if (sort._sort === "least-likes") {
-      postMessages = postMessages.sort((a, b) => {
+      posts = posts.sort((a, b) => {
         return a.likes.length - b.likes.length;
       });
     }
+    //pagination after sort
+    // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
+    posts = posts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-    res.status(200).json(postMessages);
+    res
+      .status(200)
+      .json({ data: posts, totalPages: Math.ceil(total / PAGE_SIZE) });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

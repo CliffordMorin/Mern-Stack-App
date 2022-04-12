@@ -10,10 +10,14 @@ import * as api from "../api";
 import { toast } from "react-toastify";
 
 //Action Creators
-export const getPosts = (sort) => async (dispatch) => {
+export const getPosts = (sort, page) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts(sort);
-    dispatch({ type: FETCH_ALL, payload: data });
+    const {
+      data: { data, totalPages },
+    } = await api.fetchPosts(sort, page);
+
+    dispatch({ type: FETCH_ALL, payload: { data, totalPages } });
+    console.log(data);
   } catch (error) {
     console.log(error.message);
   }

@@ -15,11 +15,13 @@ import { useDispatch } from "react-redux";
 import { getPosts } from "../../actions/posts.js";
 import Posts from "../Posts/Posts.js";
 import Form from "../Form/Form.js";
+import Paginate from "../Paginate/Paginate.js";
 import useStyles from "./styles";
 
 const Home = () => {
   const [currentId, setCurrentId] = useState(null);
   const [sort, setSort] = useState("newest");
+  const [page, setPage] = useState("1");
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -28,8 +30,8 @@ const Home = () => {
   };
 
   useEffect(() => {
-    dispatch(getPosts(sort));
-  }, [currentId, sort, dispatch]);
+    dispatch(getPosts(sort, page));
+  }, [currentId, sort, page, dispatch]);
 
   return (
     <div>
@@ -50,6 +52,7 @@ const Home = () => {
                 currentId={currentId}
                 setCurrentId={setCurrentId}
                 sort={sort}
+                page={page}
               />
               <Paper style={{ marginTop: "20px" }}>
                 <FormControl className={classes.formControl}>
@@ -67,6 +70,9 @@ const Home = () => {
                   </Select>
                   <FormHelperText>Sort posts by:</FormHelperText>
                 </FormControl>
+              </Paper>
+              <Paper style={{ marginTop: "20px" }}>
+                <Paginate setPage={setPage} page={page} />
               </Paper>
             </Grid>
           </Grid>
