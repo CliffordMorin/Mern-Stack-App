@@ -17,7 +17,6 @@ export const getPosts = (sort, page) => async (dispatch) => {
     } = await api.fetchPosts(sort, page);
 
     dispatch({ type: FETCH_ALL, payload: { data, totalPages } });
-    console.log(data);
   } catch (error) {
     console.log(error.message);
   }
@@ -26,7 +25,6 @@ export const getPosts = (sort, page) => async (dispatch) => {
 export const createPost = (post) => async (dispatch) => {
   try {
     const { data } = await api.createPost(post);
-    console.log({ data });
 
     dispatch({ type: CREATE, payload: data });
     toast.success("Post created successfully!");
