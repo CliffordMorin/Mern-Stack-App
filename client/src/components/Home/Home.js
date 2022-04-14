@@ -54,7 +54,7 @@ const Home = () => {
                 sort={sort}
                 page={page}
               />
-              <Paper style={{ marginTop: "20px" }}>
+              <Paper style={{ marginTop: "20px" }} elevation={6}>
                 <FormControl className={classes.formControl}>
                   <InputLabel id="sort-select">Sort Posts</InputLabel>
                   <Select
@@ -71,7 +71,7 @@ const Home = () => {
                   <FormHelperText>Sort posts by:</FormHelperText>
                 </FormControl>
               </Paper>
-              <Paper style={{ marginTop: "20px" }}>
+              <Paper style={{ marginTop: "20px" }} elevation={6}>
                 <Paginate setPage={setPage} page={page} />
               </Paper>
             </Grid>

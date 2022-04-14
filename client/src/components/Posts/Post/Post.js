@@ -60,7 +60,7 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} raised>
       <CardMedia
         className={classes.media}
         image={post.selectedFile}

@@ -4,6 +4,8 @@ import {
   UPDATE,
   DELETE,
   LIKE,
+  START_LOADING,
+  END_LOADING,
 } from "../constants/actionsTypes";
 import * as api from "../api";
 //error toasts!
@@ -12,11 +14,13 @@ import { toast } from "react-toastify";
 //Action Creators
 export const getPosts = (sort, page) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const {
       data: { data, totalPages },
     } = await api.fetchPosts(sort, page);
 
     dispatch({ type: FETCH_ALL, payload: { data, totalPages } });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
   }
@@ -24,6 +28,7 @@ export const getPosts = (sort, page) => async (dispatch) => {
 
 export const createPost = (post) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.createPost(post);
 
     dispatch({ type: CREATE, payload: data });
