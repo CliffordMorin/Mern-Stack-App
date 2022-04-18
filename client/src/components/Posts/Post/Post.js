@@ -35,7 +35,9 @@ const Post = ({ post, setCurrentId }) => {
 
   const Likes = () => {
     if (post.likes.length > 0) {
-      return post.likes.find((like) => like === user?.result?._id) ? (
+      return post.likes.find(
+        (like) => like === (user?.result?.googleId || user?.result?._id)
+      ) ? (
         <>
           <ThumbUpAltIcon fontSize="small" />
           &nbsp;
@@ -94,7 +96,7 @@ const Post = ({ post, setCurrentId }) => {
         </Typography>
       </div>
       <div className={classes.overlay2}>
-        {user?.result?._id === post?.creator && (
+        {(user?.result?.googleId || user?.result?._id) === post?.creator && (
           <Button
             style={{ color: "white" }}
             size="small"
@@ -129,7 +131,7 @@ const Post = ({ post, setCurrentId }) => {
         >
           <Likes />
         </Button>
-        {user?.result?._id === post?.creator && (
+        {(user?.result?.googleId || user?.result?._id) === post?.creator && (
           <Button
             size="small"
             color="primary"

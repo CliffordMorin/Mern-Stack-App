@@ -2,6 +2,9 @@ import React from "react";
 import Post from "./Post/Post.js";
 import useStyles from "./styles";
 
+import { useMediaQuery } from "react-responsive";
+import InfiniteScroll from "react-infinite-scroller";
+
 import { useSelector } from "react-redux";
 import { Grid, CircularProgress } from "@material-ui/core";
 
