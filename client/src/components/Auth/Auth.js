@@ -29,6 +29,9 @@ const initialState = {
   confirmedPassword: "",
 };
 
+const CLIENT_ID =
+  "336536776294-qvt1nfm9go2g4v2lvkugc33k03p8rbb8.apps.googleusercontent.com";
+
 const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(initialState);
@@ -132,7 +135,7 @@ const Auth = () => {
             {isSignedUp ? "Sign Up" : "Sign In"}
           </Button>
           <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+            clientId={CLIENT_ID}
             render={(renderProps) => (
               <Button
                 color="primary"
