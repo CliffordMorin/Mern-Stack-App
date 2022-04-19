@@ -4,6 +4,7 @@ import {
   CREATE,
   UPDATE,
   DELETE,
+  COMMENT,
   START_LOADING,
   END_LOADING,
 } from "../constants/actionsTypes";
@@ -42,7 +43,18 @@ const reducer = (state = { isLoading: true, posts: [] }, action) => {
           post._id === action.payload._id ? action.payload : post
         ),
       };
-
+    case COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          //change the post that just received a comment
+          if (post._id === action.payload._id) {
+            return action.payload;
+          }
+          //return all the other posts normally
+          return post;
+        }),
+      };
     default:
       return state;
   }

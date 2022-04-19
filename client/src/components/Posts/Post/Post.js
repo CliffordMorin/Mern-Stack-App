@@ -16,6 +16,8 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 
+import Comment from "../Comment/Comment";
+
 import { deletePost, likePost } from "../../../actions/posts";
 
 const Post = ({ post, setCurrentId }) => {
@@ -134,7 +136,7 @@ const Post = ({ post, setCurrentId }) => {
         {(user?.result?.googleId || user?.result?._id) === post?.creator && (
           <Button
             size="small"
-            color="primary"
+            color="secondary"
             onClick={() => {
               dispatch(deletePost(post._id));
             }}
@@ -143,6 +145,7 @@ const Post = ({ post, setCurrentId }) => {
             Delete
           </Button>
         )}
+        <Comment post={post} />
       </CardActions>
     </Card>
   );

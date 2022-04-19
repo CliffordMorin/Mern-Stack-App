@@ -4,6 +4,7 @@ import {
   UPDATE,
   DELETE,
   LIKE,
+  COMMENT,
   START_LOADING,
   END_LOADING,
 } from "../constants/actionsTypes";
@@ -67,6 +68,19 @@ export const likePost = (id) => async (dispatch) => {
 
     dispatch({ type: LIKE, payload: data });
   } catch (error) {
+    console.log(error);
+  }
+};
+
+export const commentPost = (value, id) => async (dispatch) => {
+  try {
+    const { data } = await api.comment(value, id);
+
+    dispatch({ type: COMMENT, payload: data });
+    toast.success("Comment added successfully!");
+    return data.comments;
+  } catch (error) {
+    toast.error("There was an error adding your comment!");
     console.log(error);
   }
 };
