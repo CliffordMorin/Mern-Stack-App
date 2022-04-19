@@ -9,6 +9,7 @@ import {
   DialogContentText,
   TextField,
   Typography,
+  Divider,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import CommentIcon from "@material-ui/icons/Comment";
@@ -40,7 +41,7 @@ const Comment = ({ post }) => {
     setComments(newComments);
     setComment("");
 
-    commentsRef.current.scrollIntoView({ behavior: "smooth" });
+    commentsRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   };
 
   return (
@@ -60,12 +61,19 @@ const Comment = ({ post }) => {
         </DialogTitle>
         <DialogContent>
           <div>
-            <DialogContentText>
-              {comments.map((c, i) => (
-                <Typography key={i} gutterBottom variant="subtitle1">
-                  {c}
+            <DialogContentText gutterBottom>
+              {comments.length > 0 ? (
+                comments.map((c, i) => (
+                  <Typography key={i} gutterBottom variant="subtitle1">
+                    <strong>{c.split(":")[0]}</strong>: {c.split(":")[1]}
+                    <Divider />
+                  </Typography>
+                ))
+              ) : (
+                <Typography variant="subtitle1">
+                  No comments yet. Be the first to comment!
                 </Typography>
-              ))}
+              )}
               <div ref={commentsRef} />
             </DialogContentText>
           </div>
