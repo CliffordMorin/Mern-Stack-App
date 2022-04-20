@@ -1,6 +1,7 @@
 import {
   LIKE,
   FETCH_ALL,
+  FETCH_BY_SEARCH,
   CREATE,
   UPDATE,
   DELETE,
@@ -22,6 +23,8 @@ const reducer = (state = { isLoading: true, posts: [] }, action) => {
         posts: action.payload.data,
         totalPages: action.payload.totalPages,
       };
+    case FETCH_BY_SEARCH:
+      return { ...state, posts: action.payload.data };
     case CREATE:
       return { ...state, posts: [...state.posts, action.payload] };
     case UPDATE:

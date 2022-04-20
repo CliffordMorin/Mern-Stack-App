@@ -22,6 +22,13 @@ export default makeStyles((theme) => ({
     margin: "20px",
     width: "90%",
   },
+  appBarSearch: {
+    borderRadius: 4,
+    marginBottom: "1rem",
+    marginTop: "1rem",
+    display: "flex",
+    padding: "16px",
+  },
   //adds media queries using material UI, to change the form to the top of the screen on mobile
   [theme.breakpoints.down("sm")]: {
     mainContainer: {

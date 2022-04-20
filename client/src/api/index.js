@@ -18,6 +18,12 @@ API.interceptors.request.use((req) => {
 
 export const fetchPosts = (sort, page) =>
   API.get("/posts?_sort=" + sort + "&_page=" + page);
+export const fetchPostsBySearch = (searchQuery) =>
+  API.get(
+    `/posts/search?searchQuery=${searchQuery.search || "none"}&tags=${
+      searchQuery.tags
+    }`
+  );
 export const createPost = (newPost) => {
   return API.post("/posts", newPost);
 };
