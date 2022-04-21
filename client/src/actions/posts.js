@@ -19,11 +19,13 @@ import { toast } from "react-toastify";
 export const getPosts = (sort, page) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
+
     const {
       data: { data, totalPages },
     } = await api.fetchPosts(sort, page);
-
+    console.log("getting posts");
     dispatch({ type: FETCH_ALL, payload: { data, totalPages } });
+
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);

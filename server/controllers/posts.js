@@ -8,27 +8,27 @@ export const getPosts = async (req, res) => {
   const total = await PostMessage.countDocuments();
 
   //client send server query ?sort=
-  const sort = req.query;
+  const sort = req.query._sort || "createdAt";
 
   try {
     let posts = await PostMessage.find();
 
-    if (sort._sort === "newest") {
+    if (sort === "newest") {
       posts = posts.sort((a, b) => {
         return b.createdAt - a.createdAt;
       });
     }
-    if (sort._sort === "oldest") {
+    if (sort === "oldest") {
       posts = posts.sort((a, b) => {
         return a.createdAt - b.createdAt;
       });
     }
-    if (sort._sort === "most-likes") {
+    if (sort === "most-likes") {
       posts = posts.sort((a, b) => {
         return b.likes.length - a.likes.length;
       });
     }
-    if (sort._sort === "least-likes") {
+    if (sort === "least-likes") {
       posts = posts.sort((a, b) => {
         return a.likes.length - b.likes.length;
       });
