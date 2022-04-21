@@ -8,6 +8,9 @@ export default makeStyles((theme) => ({
     backgroundBlendMode: "darken",
     cursor: "pointer",
   },
+  menu: {
+    backgroundColor: "#9CA0A4",
+  },
   border: {
     border: "solid",
   },

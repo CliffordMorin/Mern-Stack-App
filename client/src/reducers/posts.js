@@ -8,9 +8,14 @@ import {
   COMMENT,
   START_LOADING,
   END_LOADING,
+  OPEN_FORM,
+  CLOSE_FORM,
 } from "../constants/actionsTypes";
 
-const reducer = (state = { isLoading: true, posts: [] }, action) => {
+const reducer = (
+  state = { isLoading: true, posts: [], isFormOpen: false },
+  action
+) => {
   switch (action.type) {
     case START_LOADING:
       return { ...state, isLoading: true };
@@ -57,6 +62,16 @@ const reducer = (state = { isLoading: true, posts: [] }, action) => {
           //return all the other posts normally
           return post;
         }),
+      };
+    case OPEN_FORM:
+      return {
+        ...state,
+        isFormOpen: true,
+      };
+    case CLOSE_FORM:
+      return {
+        ...state,
+        isFormOpen: false,
       };
     default:
       return state;

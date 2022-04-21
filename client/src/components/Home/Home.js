@@ -69,9 +69,10 @@ const Home = () => {
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
       setSearch(e.target.value);
+      searchPost();
     }
   };
 
@@ -98,18 +99,18 @@ const Home = () => {
                 <TextField
                   name="search"
                   variant="outlined"
-                  label="Search Posts"
+                  label="Search by title"
                   fullWidth
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyDown}
                 />
                 <ChipInput
                   style={{ margin: "10px 0 " }}
                   value={tags}
                   onAdd={handleAddTag}
                   onDelete={handleRemoveTag}
-                  label="Search Tags"
+                  label="Search tags"
                   variant="outlined"
                 />
                 <Button
@@ -117,7 +118,6 @@ const Home = () => {
                   className={classes.searchButton}
                   color="primary"
                   variant="contained"
-                  disable={!search || !tags}
                 >
                   Search
                 </Button>
@@ -145,7 +145,6 @@ const Home = () => {
                 sort={sort}
                 page={page}
               />
-
               <Paper style={{ marginTop: "20px" }} elevation={6}>
                 <Paginate setPage={setPage} page={page} />
               </Paper>

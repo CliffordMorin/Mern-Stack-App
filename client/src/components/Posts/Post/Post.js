@@ -8,17 +8,20 @@ import {
   Button,
   Typography,
   Dialog,
+  Menu,
+  MenuItem,
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpOutlined";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 
 import Comment from "../Comment/Comment";
 
-import { deletePost, likePost } from "../../../actions/posts";
+import { deletePost, likePost, openForm } from "../../../actions/posts";
 
 const Post = ({ post, setCurrentId }) => {
   const classes = usestyles();
@@ -26,16 +29,24 @@ const Post = ({ post, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const [likes, setLikes] = useState(post?.likes);
 
-  const [open, setOpen] = React.useState(false);
+  const [openImg, setOpenImg] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleOpenImg = () => {
+    setOpenImg(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseImg = () => {
+    setOpenImg(false);
   };
 
+  const handleClickMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
   //made user id a variable in order to make code more readable
   const userId = user?.result?.googleId || user?.result?._id;
   const hasLikedPost = post.likes.find((like) => like === userId);
@@ -81,11 +92,12 @@ const Post = ({ post, setCurrentId }) => {
         className={classes.media}
         image={post.selectedFile}
         title={post.title}
-        onClick={handleOpen}
+        onClick={handleOpenImg}
+        component="div"
       ></CardMedia>
       <Dialog
-        open={open}
-        onClose={handleClose}
+        open={openImg}
+        onClose={handleCloseImg}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
@@ -111,16 +123,51 @@ const Post = ({ post, setCurrentId }) => {
       </div>
       <div className={classes.overlay2}>
         {userId === post?.creator && (
-          <Button
-            style={{ color: "white" }}
-            size="small"
-            onClick={() => {
-              setCurrentId(post._id);
-              window.scrollTo(0, 0);
-            }}
-          >
-            <MoreHorizIcon fontSize="medium" />
-          </Button>
+          <div>
+            <Button
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleClickMenu}
+              style={{ color: "white" }}
+            >
+              <MoreHorizIcon />
+            </Button>
+            <Menu
+              id="simple-menu"
+              classes={{ paper: classes.menu }}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleCloseMenu}
+            >
+              <MenuItem onClick={handleCloseMenu}>
+                <Button
+                  size="small"
+                  color="secondary"
+                  variant="contained"
+                  onClick={() => {
+                    dispatch(deletePost(post._id));
+                  }}
+                >
+                  <DeleteIcon fontSize="small" />
+                </Button>
+              </MenuItem>
+              <MenuItem onClick={handleCloseMenu}>
+                <Button
+                  style={{ color: "white", backgroundColor: "green" }}
+                  size="small"
+                  variant="contained"
+                  onClick={() => {
+                    setCurrentId(post._id);
+                    dispatch(openForm());
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  <EditIcon fontSize="medium" />
+                </Button>
+              </MenuItem>
+            </Menu>
+          </div>
         )}
       </div>
       <div className={classes.details}>
@@ -145,18 +192,6 @@ const Post = ({ post, setCurrentId }) => {
         >
           <Likes />
         </Button>
-        {userId === post?.creator && (
-          <Button
-            size="small"
-            color="secondary"
-            onClick={() => {
-              dispatch(deletePost(post._id));
-            }}
-          >
-            <DeleteIcon fontSize="small" />
-            Delete
-          </Button>
-        )}
         <Comment post={post} />
       </CardActions>
     </Card>

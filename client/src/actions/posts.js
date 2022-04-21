@@ -8,6 +8,8 @@ import {
   COMMENT,
   START_LOADING,
   END_LOADING,
+  OPEN_FORM,
+  CLOSE_FORM,
 } from "../constants/actionsTypes";
 import * as api from "../api";
 //error toasts!
@@ -97,4 +99,14 @@ export const commentPost = (value, id) => async (dispatch) => {
     toast.error("There was an error adding your comment!");
     console.log(error);
   }
+};
+
+export const openForm = (id) => (dispatch) => {
+  dispatch({ type: OPEN_FORM, isFormOpen: true, id });
+  console.log("open form");
+};
+
+export const closeForm = () => (dispatch) => {
+  dispatch({ type: CLOSE_FORM, isFormOpen: false });
+  console.log("close form");
 };
