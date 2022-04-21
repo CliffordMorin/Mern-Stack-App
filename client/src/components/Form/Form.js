@@ -7,7 +7,7 @@ import {
   Paper,
   Fab,
   Dialog,
-  DialogContent,
+  Tooltip,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import FileBase from "react-file-base64";
@@ -88,15 +88,17 @@ const Form = ({ currentId, setCurrentId, sort, page }) => {
 
   return (
     <div>
-      <Fab
-        onClick={handleClickOpen}
-        style={{ color: "white", backgroundColor: "green" }}
-        aria-label="add"
-        size="large"
-        className={classes.fab}
-      >
-        <AddIcon />
-      </Fab>
+      <Tooltip title="Create Post" aria-label="create post" arrow>
+        <Fab
+          onClick={handleClickOpen}
+          style={{ color: "white", backgroundColor: "green" }}
+          aria-label="add"
+          size="large"
+          className={classes.fab}
+        >
+          <AddIcon />
+        </Fab>
+      </Tooltip>
       <Dialog
         open={isOpen}
         onClose={handleClose}

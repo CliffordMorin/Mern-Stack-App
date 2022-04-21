@@ -10,6 +10,7 @@ import {
   TextField,
   Typography,
   Divider,
+  Tooltip,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import CommentIcon from "@material-ui/icons/Comment";
@@ -46,9 +47,11 @@ const Comment = ({ post }) => {
 
   return (
     <div>
-      <Button onClick={handleClickOpen}>
-        <CommentIcon color="primary" />
-      </Button>
+      <Tooltip title="View Comments" arrow placement="top">
+        <Button onClick={handleClickOpen}>
+          <CommentIcon color="primary" />
+        </Button>
+      </Tooltip>
       <Dialog
         className={classes.dialog}
         open={open}

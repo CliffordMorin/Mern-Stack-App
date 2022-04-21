@@ -10,6 +10,7 @@ import {
   Dialog,
   Menu,
   MenuItem,
+  Tooltip,
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpOutlined";
@@ -124,14 +125,16 @@ const Post = ({ post, setCurrentId }) => {
       <div className={classes.overlay2}>
         {userId === post?.creator && (
           <div>
-            <Button
-              aria-controls="simple-menu"
-              aria-haspopup="true"
-              onClick={handleClickMenu}
-              style={{ color: "white" }}
-            >
-              <MoreHorizIcon />
-            </Button>
+            <Tooltip title="Edit or Delete Post" placement="top" arrow>
+              <Button
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={handleClickMenu}
+                style={{ color: "white" }}
+              >
+                <MoreHorizIcon />
+              </Button>
+            </Tooltip>
             <Menu
               id="simple-menu"
               classes={{ paper: classes.menu }}
@@ -141,30 +144,34 @@ const Post = ({ post, setCurrentId }) => {
               onClose={handleCloseMenu}
             >
               <MenuItem onClick={handleCloseMenu}>
-                <Button
-                  size="small"
-                  color="secondary"
-                  variant="contained"
-                  onClick={() => {
-                    dispatch(deletePost(post._id));
-                  }}
-                >
-                  <DeleteIcon fontSize="small" />
-                </Button>
+                <Tooltip title="Delete Post" placement="top" arrow>
+                  <Button
+                    size="small"
+                    color="secondary"
+                    variant="contained"
+                    onClick={() => {
+                      dispatch(deletePost(post._id));
+                    }}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </Button>
+                </Tooltip>
               </MenuItem>
               <MenuItem onClick={handleCloseMenu}>
-                <Button
-                  style={{ color: "white", backgroundColor: "green" }}
-                  size="small"
-                  variant="contained"
-                  onClick={() => {
-                    setCurrentId(post._id);
-                    dispatch(openForm());
-                    window.scrollTo(0, 0);
-                  }}
-                >
-                  <EditIcon fontSize="medium" />
-                </Button>
+                <Tooltip title="Edit Post" placement="bottom" arrow>
+                  <Button
+                    style={{ color: "white", backgroundColor: "green" }}
+                    size="small"
+                    variant="contained"
+                    onClick={() => {
+                      setCurrentId(post._id);
+                      dispatch(openForm());
+                      window.scrollTo(0, 0);
+                    }}
+                  >
+                    <EditIcon fontSize="medium" />
+                  </Button>
+                </Tooltip>
               </MenuItem>
             </Menu>
           </div>
