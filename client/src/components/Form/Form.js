@@ -31,7 +31,7 @@ const Form = ({ currentId, setCurrentId, sort, page }) => {
     tags: "",
     selectedFile: "",
   });
-  const [open, setOpen] = useState(false);
+
   const dispatch = useDispatch();
   //get the user from local storage so we can get the name of the user for posting on handleSubmit
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -56,6 +56,10 @@ const Form = ({ currentId, setCurrentId, sort, page }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    postData.tags = postData.tags.map((tag) =>
+      tag.replace(/\s/g, "").toLowerCase()
+    );
+    console.log(postData.tags);
     if (currentId) {
       dispatch(
         updatePost(currentId, { ...postData, name: user?.result?.name })
@@ -148,12 +152,12 @@ const Form = ({ currentId, setCurrentId, sort, page }) => {
               placeholder="yolo,swag,livin,etc...no spaces"
               fullWidth
               value={postData.tags}
-              onChange={(e) =>
+              onChange={(e) => {
                 setPostData({
                   ...postData,
-                  tags: e.target.value.toLowerCase().split(","),
-                })
-              }
+                  tags: e.target.value.split(","),
+                });
+              }}
             />
             <div className={classes.fileInput}>
               <FileBase
