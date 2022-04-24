@@ -166,7 +166,6 @@ const Post = ({ post, setCurrentId }) => {
                     onClick={() => {
                       setCurrentId(post._id);
                       dispatch(openForm());
-                      window.scrollTo(0, 0);
                     }}
                   >
                     <EditIcon fontSize="medium" />
