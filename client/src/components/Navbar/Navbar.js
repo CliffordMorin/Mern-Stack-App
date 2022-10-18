@@ -5,7 +5,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
 
-import instaverse from "../../images/instaverse.png";
+import mindump from "../../constants/images/mindump.png";
 
 const Navbar = () => {
   const classes = useStyles();
@@ -52,8 +52,8 @@ const Navbar = () => {
         </Typography>
         <img
           className={classes.image}
-          src={instaverse}
-          alt="instaverse"
+          src={mindump}
+          alt="mindump"
           height="60"
         />
       </div>

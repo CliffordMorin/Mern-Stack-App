@@ -15,6 +15,7 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import GoogleIcon from "./googleIcon";
 import useStyles from "./styles";
 import Input from "./Input";
+import InputEmail from "./InputEmail";
 
 import { useNavigate } from "react-router-dom";
 import { signIn, signUp } from "../../actions/auth";
@@ -36,9 +37,14 @@ const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(initialState);
   const [isSignedUp, setIsSignedUp] = useState(false);
+  const [emailError, setEmailError] = useState({ mode: "", message: "" });
   const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const isValidEmail = (email) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,6 +54,21 @@ const Auth = () => {
       dispatch(signIn(formData, navigate));
     }
   };
+
+  const handleChangeEmail = (e) => {
+    if (!isValidEmail(e.target.value)) {
+      setEmailError({
+        mode: "error",
+        message: "Not a valid email",
+      });
+      console.log("Not a valid email");
+    } else {
+      setEmailError({ mode: "", message: "" });
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+      console.log("Valid email");
+    }
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -103,11 +124,13 @@ const Auth = () => {
                 />
               </>
             )}
-            <Input
+            <InputEmail
               name="email"
               label="Email Address"
-              handleChange={handleChange}
+              handleChangeEmail={handleChangeEmail}
               type="email"
+              error={emailError.mode}
+              helperText={emailError.message}
             />
             <Input
               name="password"
